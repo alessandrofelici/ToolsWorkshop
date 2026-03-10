@@ -1,26 +1,59 @@
 # Developer Tools & Git Features
-Follow along the steps during the workshop!
 
-### Links
+### Developer
 
-Developer:
-	https://free-for.dev/#/
-https://eggplant-waterlily-64e.notion.site/Lord-Mango-s-Website-Wiki-caab230982c54262b3cdbcb152488636
-https://it-tools.tech/
-https://devtoollab.com/tools
-Design:
-	https://glyphs.fyi/
-	https://coolors.co/
-	https://storyset.com/
-	https://www.magicpattern.design/tools
-https://www.checklist.design/
-https://colourcontrast.cc/
-https://www.realtimecolors.com/
-Other:
-https://learn-anything.xyz/
-	https://ebookfoundation.github.io/free-programming-books/
-https://www.open-resume.com/resume-parser
-https://dropsha.re/
+- [free-for.dev](https://free-for.dev)
+- [Lord Mango's Website Wiki](https://eggplant-waterlily-64e.notion.site)
+- [it-tools.tech](https://it-tools.tech)
+- [devtoollab.com/tools](https://devtoollab.com/tools)
 
+### Design
 
-### Challenge 1
+- [glyphs.fyi](https://glyphs.fyi)
+- [coolors.co](https://coolors.co)
+- [storyset.com](https://storyset.com)
+- [magicpattern.design/tools](https://magicpattern.design/tools)
+- [checklist.design](https://checklist.design)
+- [colourcontrast.cc](https://colourcontrast.cc)
+- [realtimecolors.com](https://realtimecolors.com)
+
+### Other
+
+- [learn-anything.xyz](https://learn-anything.xyz)
+- [Free Programming Books](https://ebookfoundation.github.io/free-programming-books)
+- [open-resume.com/resume-parser](https://open-resume.com/resume-parser)
+- [dropsha.re](https://dropsha.re)
+
+### Git Reference
+
+**Branching**
+
+```
+git branch <name>          create branch
+git checkout -b <name>     create + switch
+git merge <branch>         merge into current
+git branch -d <name>       delete branch
+git branch -a              list all (local + remote)
+```
+
+**Reflog**
+
+```
+git reflog                 show all HEAD movements
+git checkout <hash>        jump to a "lost" commit
+git reset --hard <hash>    restore to a previous state
+```
+
+- entries expire after 90 days by default
+- saves you after bad rebase, reset, or branch delete
+
+**Blame**
+
+```
+git blame <file>           who changed each line + when
+git blame -w <file>        ignore whitespace changes
+git blame -C <file>        detect moved/copied lines (same commit)
+git blame -C -C <file>     also search file creation commit
+git blame -C -C -C <file>  search entire repo history (slow)
+git blame -w -C <file>     combined
+```
