@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Challenge 1</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: monospace;
+      background: #111;
+      color: #eee;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 500px;
+      padding: 2rem;
+    }
+
+    h1 {
+      font-size: 1.4rem;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      font-size: 0.85rem;
+      color: #888;
+      margin-bottom: 0.4rem;
+    }
+
+    .encoded {
+      background: #1a1a1a;
+      border: 1px solid #333;
+      padding: 0.75rem;
+      font-size: 0.85rem;
+      word-break: break-all;
+      margin-bottom: 1.5rem;
+      user-select: all;
+    }
+
+    .answer-row {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    input {
+      flex: 1;
+      background: #1a1a1a;
+      border: 1px solid #333;
+      color: #eee;
+      font-family: monospace;
+      font-size: 0.9rem;
+      padding: 0.6rem 0.75rem;
+      outline: none;
+    }
+
+    input:focus { border-color: #555; }
+
+    .icon {
+      font-size: 1.3rem;
+      width: 1.5rem;
+      text-align: center;
+    }
+
+    .icon.correct { color: #4f4; }
+    .icon.wrong { color: #f44; }
+
+    .hint {
+      margin-top: 1.5rem;
+      font-size: 0.75rem;
+      color: #555;
+      text-align: center;
+    }
+
+    .hint a { color: #888; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>challenge 1</h1>
+
+    <label>input:</label>
+    <div class="encoded">aW1hZ2luZSBzb2Z0d2FyZQ==</div>
+
+    <label>your answer:</label>
+    <div class="answer-row">
+      <input type="text" id="answer" placeholder="decoded text" autocomplete="off" />
+      <div class="icon" id="icon"></div>
+    </div>
+
+    <p class="hint">
+      try <a href="https://it-tools.tech/base64-string-converter" target="_blank">it-tools.tech</a>
+    </p>
+  </div>
+
+  <script>
+    const ANSWER = 'imagine software';
+    const input = document.getElementById('answer');
+    const icon = document.getElementById('icon');
+
+    input.addEventListener('input', () => {
+      const val = input.value.trim().toLowerCase();
+      if (val === '') {
+        icon.textContent = '';
+        icon.className = 'icon';
+      } else if (val === ANSWER) {
+        icon.textContent = '✓';
+        icon.className = 'icon correct';
+      } else {
+        icon.textContent = '✗';
+        icon.className = 'icon wrong';
+      }
+    });
+  </script>
+</body>
+</html>
