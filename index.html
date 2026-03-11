@@ -432,12 +432,12 @@ Design tools that might help:
     </div>
     <ol>
       <li>Clone your fork locally</li>
-      <li>Run <code>bash challenges/01-branching/setup.sh</code></li>
-      <li>List branches with <code>git branch -a</code></li>
-      <li>Switch to <code>feature/add-weather</code> — open index.html, see the change</li>
-      <li>Switch to <code>feature/add-qrcode</code> — see a different change</li>
-      <li>Checkout main and merge <code>feature/add-weather</code></li>
-      <li>Merge <code>feature/add-qrcode</code> — this one won't go smoothly...</li>
+      <li>Run <code>git reset --hard HEAD~3</code></li>
+      <li>Check <code>git log</code> — your merged work is gone</li>
+      <li>Don't panic. Run <code>git reflog</code></li>
+      <li>Find the commit hash from before the reset</li>
+      <li>Run <code>git reset --hard &lt;hash&gt;</code></li>
+      <li>Check <code>git log</code> again — everything is back</li>
     </ol>
   </div>
   <div class="challenge-card">
@@ -460,7 +460,7 @@ Design tools that might help:
       <span class="card-stars">⭐⭐</span>
     </div>
     <ol>
-      <li>Run <code>bash challenges/03-reflog/setup.sh</code></li>
+      <li>Run <code>git reset --hard HEAD~3</code></li>
       <li>Check <code>git log</code> — your merged work is gone</li>
       <li>Don't panic. Run <code>git reflog</code></li>
       <li>Find the commit hash from before the reset</li>
