@@ -3,9 +3,10 @@
 ### Developer
 
 - [free-for.dev](https://free-for.dev)
-- [Lord Mango's Website Wiki](https://eggplant-waterlily-64e.notion.site)
 - [it-tools.tech](https://it-tools.tech)
 - [devtoollab.com/tools](https://devtoollab.com/tools)
+- [Gemini for Students](https://gemini.google/students)
+- [Google Antigravity](https://antigravity.google)
 
 ### Design
 
@@ -16,13 +17,18 @@
 - [checklist.design](https://checklist.design)
 - [colourcontrast.cc](https://colourcontrast.cc)
 - [realtimecolors.com](https://realtimecolors.com)
+- [Google Stitch](https://stitch.withgoogle.com)
 
 ### Other
 
 - [learn-anything.xyz](https://learn-anything.xyz)
 - [Free Programming Books](https://ebookfoundation.github.io/free-programming-books)
 - [open-resume.com/resume-parser](https://open-resume.com/resume-parser)
+- [Jake's Resume (Overleaf)](https://www.overleaf.com/latex/templates/jakes-resume/syzfjbzwjncs)
 - [dropsha.re](https://dropsha.re)
+- [tinywow.com](https://tinywow.com)
+- [Wispr Flow](https://wisprflow.ai)
+- [Lord Mango's Website Wiki](https://eggplant-waterlily-64e.notion.site)
 
 ### Git Reference
 
