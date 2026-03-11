@@ -5,12 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Tools Workshop</title>
   <style>
+    :root {
+      --bg:      #111;
+      --surface: #1a1a1a;
+      --border:  #222;
+      --border2: #333;
+      --muted:   #555;
+      --dim:     #888;
+      --mid:     #999;
+      --soft:    #aaa;
+      --bright:  #ccc;
+      --text:    #eee;
+    }
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { font-size: 18px; }
 
     body {
       font-family: monospace;
-      background: #111;
-      color: #eee;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
     }
 
@@ -18,24 +33,24 @@
     nav {
       display: flex;
       flex-wrap: wrap;
-      border-bottom: 1px solid #222;
+      border-bottom: 1px solid var(--border);
       padding: 0 1rem;
     }
 
     nav a {
       display: inline-block;
       padding: 0.75rem 1rem;
-      color: #555;
+      color: var(--muted);
       text-decoration: none;
-      font-size: 0.85rem;
+      font-size: 0.95rem;
       border-bottom: 2px solid transparent;
     }
 
-    nav a:hover { color: #999; }
+    nav a:hover { color: var(--mid); }
 
     nav a.active {
-      color: #eee;
-      border-bottom-color: #eee;
+      color: var(--text);
+      border-bottom-color: var(--text);
     }
 
     /* --- Sections --- */
@@ -64,7 +79,7 @@
 
     .home-heading {
       font-size: 0.8rem;
-      color: #555;
+      color: var(--muted);
       text-transform: uppercase;
       letter-spacing: 0.08em;
       margin-bottom: 0.6rem;
@@ -72,16 +87,16 @@
 
     .home-links a {
       display: block;
-      color: #888;
+      color: var(--dim);
       text-decoration: none;
       font-size: 0.85rem;
       padding: 0.2rem 0;
     }
 
-    .home-links a:hover { color: #ccc; }
+    .home-links a:hover { color: var(--bright); }
 
     /* --- Challenge pages --- */
-    .challenge-section .container { max-width: 500px; }
+    .challenge-section .container { max-width: 900px; }
 
     h1 {
       font-size: 1.4rem;
@@ -89,37 +104,114 @@
       text-align: center;
     }
 
-    label {
-      display: block;
-      font-size: 0.85rem;
-      color: #888;
-      margin-bottom: 0.4rem;
-    }
-
-    .encoded {
-      background: #1a1a1a;
-      border: 1px solid #333;
-      padding: 0.75rem;
-      font-size: 0.85rem;
-      word-break: break-all;
+    .story {
+      font-size: 0.9rem;
+      color: var(--soft);
+      line-height: 1.7;
       margin-bottom: 1.5rem;
-      user-select: all;
     }
 
-    .description {
+    .story ul {
+      margin: 0.75rem 0 0.75rem 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.2rem;
+    }
+
+    .story a {
+      color: var(--dim);
+      text-decoration: none;
+    }
+
+    .story a:hover { color: var(--bright); }
+
+    .token {
+      display: block;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 0.5rem 0.75rem;
+      margin: 0.75rem 0;
       font-size: 0.85rem;
-      color: #888;
-      margin-bottom: 0.5rem;
+      white-space: pre;
+      overflow-x: auto;
+      user-select: all;
+      color: var(--bright);
     }
 
     .hint {
       margin-top: 1.5rem;
+      display: flex;
+      gap: 1.5rem;
       font-size: 0.75rem;
-      color: #555;
-      text-align: center;
     }
 
-    .hint a { color: #888; }
+    .hint a { color: var(--muted); text-decoration: none; }
+    .hint a:hover { color: var(--dim); }
+
+    /* --- Palette button --- */
+    #palette-btn {
+      position: fixed;
+      bottom: 3rem;
+      right: 3rem;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      cursor: pointer;
+      z-index: 100;
+      transition: background 0.2s;
+    }
+
+    #palette-btn:hover { background: var(--border2); }
+
+    /* --- Palette modal --- */
+    #palette-modal {
+      display: none;
+      position: fixed;
+      bottom: 10rem;
+      right: 10rem;
+      width: 400px;
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 1rem;
+      z-index: 101;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    #palette-modal.open { display: flex; }
+
+    .palette-label {
+      font-size: 0.75rem;
+      color: var(--muted);
+    }
+
+    #palette-input {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border2);
+      color: var(--text);
+      font-family: monospace;
+      font-size: 0.8rem;
+      padding: 0.4rem 0.5rem;
+      outline: none;
+    }
+
+    #palette-input:focus { border-color: var(--dim); }
+
+    #palette-apply {
+      align-self: flex-end;
+      background: none;
+      border: 1px solid var(--border2);
+      color: var(--dim);
+      font-family: monospace;
+      font-size: 0.75rem;
+      padding: 0.3rem 0.75rem;
+      cursor: pointer;
+    }
+
+    #palette-apply:hover { color: var(--text); border-color: var(--mid); }
   </style>
 </head>
 <body>
@@ -175,14 +267,71 @@
     <div id="challenge-container"></div>
   </main>
 
+  <!-- TODO: CHANGE ME! Swap the SVG below for any icon you like.
+       Browse glyphs at https://glyphs.fyi/ — copy the SVG path and paste it in. -->
+  <button id="palette-btn" title="Change palette" aria-label="Change palette">
+    <svg width="60" height="60" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M38.4 20.7417H14C12.8954 20.7417 12 21.6371 12 22.7417V66.7417C12 67.8463 12.8954 68.7417 14 68.7417H58C59.1046 68.7417 60 67.8463 60 66.7417V42.342" stroke="#C2CCDE" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M68.0145 21.8972C68.7943 21.1174 68.7943 19.8532 68.0145 19.0734L62.3577 13.4166C61.5753 12.6342 60.3069 12.6342 59.5246 13.4166L30.6996 42.2416C28.1991 44.7421 26.5974 48.0005 26.1449 51.5077L25.7115 54.8664C25.6479 55.359 26.0674 55.7785 26.56 55.715L29.9187 55.2816C33.4259 54.829 36.6844 53.2273 39.1849 50.7268L68.0145 21.8972Z" stroke="#C2CCDE" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M52.1455 20.8037L60.6261 29.2843" stroke="#C2CCDE" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </button>
+
+  <div id="palette-modal" role="dialog" aria-label="Palette picker">
+    <p class="palette-label">paste a coolors link</p>
+    <input id="palette-input" type="url" placeholder="https://coolors.co/rrggbb-…" spellcheck="false" />
+    <button id="palette-apply">apply</button>
+  </div>
+
   <script>
     // ─── Config ───────────────────────────────────────────────────────────────
     const challenges = [
-      { id: 1, encoded: 'aW1hZ2luZSBzb2Z0d2FyZQ==', hint: { text: 'it-tools.tech', url: 'https://it-tools.tech/base64-string-converter' } },
-      { id: 2, encoded: 'aW1hZ2luZSBzb2Z0d2FyZQ==', hint: { text: 'it-tools.tech', url: 'https://it-tools.tech/base64-string-converter' } },
-      { id: 3, encoded: 'aW1hZ2luZSBzb2Z0d2FyZQ==', hint: { text: 'it-tools.tech', url: 'https://it-tools.tech/base64-string-converter' } },
-      { id: 4, encoded: 'aW1hZ2luZSBzb2Z0d2FyZQ==', hint: { text: 'it-tools.tech', url: 'https://it-tools.tech/base64-string-converter' } },
-      { id: 5, encoded: 'aW1hZ2luZSBzb2Z0d2FyZQ==', hint: { text: 'it-tools.tech', url: 'https://it-tools.tech/base64-string-converter' } },
+      {
+        id: 1,
+        story: `A user is locked out and you can't see why — the support ticket just says "can't log in." You pull their raw record from the database. Your ORM has been Base64-encoding all profile fields since 2019. Nobody wrote it down.<span class="token">{
+  "id": 4821,
+  "email": "john.doe@acme.com",
+  "org_id": 112,
+  "created_at": "2021-03-14T08:22:11Z",
+  "last_login": "2024-11-28T09:04:52Z",
+  "failed_attempts": 0,
+  "meta": "dXNlcm5hbWU6IGpvaG5fZG9lIHwgcm9sZTogYWRtaW4gfCBzdGF0dXM6IHN1c3BlbmRlZA=="
+}</span>Decode the <code>meta</code> field to find out what's actually stored.`,
+      },
+      {
+        id: 2,
+        story: `A bug report comes in: the "Share Invoice" button generates a link that shows a blank page. You find the request in the server logs. The <code>payload</code> query parameter looks garbled — the browser percent-encoded it before sending:<span class="token">%7B%22view%22%3A%22invoice%22%2C%22id%22%3A%22INV-00492%22%7D</span>Decode it to see what the frontend was actually trying to send.`,
+      },
+      {
+        id: 3,
+        story: `The payment service went down overnight. The on-call engineer left a note: <em>"crash at 1704067200, check the logs."</em> You need to convert that Unix timestamp to a real date and time — both to pull the right log files and to figure out what time zone your users were in when it happened.<span class="token">1704067200</span>What date and time does this timestamp represent?`,
+      },
+      {
+        id: 4,
+        hint: false,
+        story: `Your turn to make it yours. Complete all three:
+<ul>
+  <li>Change the color palette of the website using the circle button</li>
+  <li>Swap the icon in the bottom right for one from <a href="https://glyphs.fyi/" target="_blank">glyphs.fyi</a> (ctrl+f TODO in the code)</li>
+  <li>Add an image somewhere on the page</li>
+</ul>
+Design tools that might help:
+<ul>
+  <li><a href="https://glyphs.fyi" target="_blank">glyphs.fyi</a> — icons &amp; glyphs</li>
+  <li><a href="https://coolors.co" target="_blank">coolors.co</a> — color palette generator</li>
+  <li><a href="https://storyset.com" target="_blank">storyset.com</a> — free illustrations</li>
+  <li><a href="https://magicpattern.design/tools" target="_blank">magicpattern.design/tools</a> — design utilities</li>
+  <li><a href="https://checklist.design" target="_blank">checklist.design</a> — design checklists</li>
+  <li><a href="https://colourcontrast.cc" target="_blank">colourcontrast.cc</a> — contrast checker</li>
+  <li><a href="https://realtimecolors.com" target="_blank">realtimecolors.com</a> — live color preview</li>
+  <li><a href="https://stitch.withgoogle.com" target="_blank">Google Stitch</a> — UI design with AI</li>
+</ul>`,
+      },
+      {
+        id: 5,
+        hint: false,
+        story: `Placeholder — coming soon.<span class="token">aW1hZ2luZSBzb2Z0d2FyZQ==</span>`,
+      },
     ];
 
     // ─── Nav renderer ─────────────────────────────────────────────────────────
@@ -216,10 +365,12 @@
         section.innerHTML = `
           <div class="container">
             <h1>challenge ${c.id}</h1>
-            <label>input:</label>
-            <div class="encoded">${c.encoded}</div>
-            <p class="description">Decode the following text using the developer tools websites</p>
-            <p class="hint">try <a href="${c.hint.url}" target="_blank">${c.hint.text}</a></p>
+            <div class="story">${c.story}</div>
+            ${c.hint !== false ? `<div class="hint">
+              <a href="https://free-for.dev" target="_blank">free-for.dev</a>
+              <a href="https://it-tools.tech" target="_blank">it-tools.tech</a>
+              <a href="https://devtoollab.com/tools" target="_blank">devtoollab.com/tools</a>
+            </div>` : ''}
           </div>
         `;
 
@@ -240,6 +391,61 @@
       const activeLink = document.querySelector(`nav a[data-route="${hash}"]`);
       if (activeLink) activeLink.classList.add('active');
     }
+
+    // ─── Palette picker ───────────────────────────────────────────────────────
+    const paletteBtn   = document.getElementById('palette-btn');
+    const paletteModal = document.getElementById('palette-modal');
+    const paletteInput = document.getElementById('palette-input');
+    const paletteApply = document.getElementById('palette-apply');
+
+    paletteBtn.addEventListener('click', e => {
+      e.stopPropagation();
+      paletteModal.classList.toggle('open');
+      if (paletteModal.classList.contains('open')) paletteInput.focus();
+    });
+
+    document.addEventListener('click', e => {
+      if (!paletteModal.contains(e.target) && e.target !== paletteBtn) {
+        paletteModal.classList.remove('open');
+      }
+    });
+
+    function luminance(hex) {
+      const r = parseInt(hex.slice(0, 2), 16) / 255;
+      const g = parseInt(hex.slice(2, 4), 16) / 255;
+      const b = parseInt(hex.slice(4, 6), 16) / 255;
+      const toLinear = c => c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4;
+      return 0.2126 * toLinear(r) + 0.7152 * toLinear(g) + 0.0722 * toLinear(b);
+    }
+
+    function applyPalette(colors) {
+      const sorted = [...colors].sort((a, b) => luminance(a) - luminance(b));
+      const [c0, c1, c2, c3, c4] = sorted;
+      const root = document.documentElement.style;
+      root.setProperty('--bg',      '#' + c0);
+      root.setProperty('--surface', '#' + c1);
+      root.setProperty('--border',  '#' + c1);
+      root.setProperty('--border2', '#' + c2);
+      root.setProperty('--muted',   '#' + c2);
+      root.setProperty('--dim',     '#' + c3);
+      root.setProperty('--mid',     '#' + c3);
+      root.setProperty('--soft',    '#' + c3);
+      root.setProperty('--bright',  '#' + c4);
+      root.setProperty('--text',    '#' + c4);
+    }
+
+    paletteApply.addEventListener('click', () => {
+      const url = paletteInput.value.trim();
+      const match = url.match(/coolors\.co\/([0-9a-f]{6}(?:-[0-9a-f]{6})+)/i);
+      if (!match) { paletteInput.style.borderColor = 'red'; return; }
+      paletteInput.style.borderColor = '';
+      applyPalette(match[1].split('-'));
+      paletteModal.classList.remove('open');
+    });
+
+    paletteInput.addEventListener('keydown', e => {
+      if (e.key === 'Enter') paletteApply.click();
+    });
 
     // ─── Init ─────────────────────────────────────────────────────────────────
     renderNav();
