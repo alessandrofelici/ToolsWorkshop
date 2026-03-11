@@ -111,7 +111,7 @@
       margin-bottom: 1.5rem;
     }
 
-    .story ul {
+    .story ul, .story ol {
       margin: 0.75rem 0 0.75rem 1.25rem;
       display: flex;
       flex-direction: column;
@@ -124,6 +124,66 @@
     }
 
     .story a:hover { color: var(--bright); }
+
+    .story code {
+      background: var(--surface);
+      border: 1px solid var(--border2);
+      padding: 0.1rem 0.35rem;
+      font-size: 0.85em;
+      color: var(--bright);
+    }
+
+    .token-label {
+      display: block;
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 1rem;
+    }
+
+    /* --- Challenge cards (challenge 5) --- */
+    .challenge-cards {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
+
+    .challenge-card {
+      flex: 1 1 calc(50% - 0.5rem);
+      min-width: 280px;
+      border: 1px solid var(--border2);
+      padding: 1rem 1.25rem;
+      background: var(--surface);
+    }
+
+    .card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-bottom: 0.6rem;
+      gap: 0.5rem;
+    }
+
+    .card-title {
+      font-size: 0.85rem;
+      color: var(--text);
+    }
+
+    .card-stars {
+      font-size: 0.75rem;
+      color: var(--dim);
+      white-space: nowrap;
+    }
+
+    .challenge-card ol {
+      margin-left: 1.1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+      font-size: 0.82rem;
+      color: var(--soft);
+      line-height: 1.5;
+    }
 
     .token {
       display: block;
@@ -257,7 +317,7 @@
               <a href="https://dropsha.re" target="_blank">dropsha.re</a>
               <a href="https://tinywow.com" target="_blank">tinywow.com</a>
               <a href="https://wisprflow.ai" target="_blank">Wispr Flow</a>
-              <a href="https://eggplant-waterlily-64e.notion.site" target="_blank">Lord Mango's Website Wiki</a>
+              <a href="https://eggplant-waterlily-64e.notion.site/Lord-Mango-s-Website-Wiki-caab230982c54262b3cdbcb152488636" target="_blank">Lord Mango's Website Wiki</a>
             </div>
           </div>
         </div>
@@ -300,11 +360,62 @@
       },
       {
         id: 2,
-        story: `A bug report comes in: the "Share Invoice" button generates a link that shows a blank page. You find the request in the server logs. The <code>payload</code> query parameter looks garbled — the browser percent-encoded it before sending:<span class="token">%7B%22view%22%3A%22invoice%22%2C%22id%22%3A%22INV-00492%22%7D</span>Decode it to see what the frontend was actually trying to send.`,
+        story: `A junior dev pushed a login helper straight to main — no review, no tests. The CI pipeline flagged it with warnings. Nobody looked. Run this through a code quality tool and find out what it caught.<span class="token">import sqlite3
+
+SECRET_KEY = "admin123"
+
+def get_user(username):
+    conn = sqlite3.connect("users.db")
+    query = "SELECT * FROM users WHERE username = '" + username + "'"
+    result = conn.execute(query)
+    return result.fetchone()
+
+def check_login(username, password):
+    user = get_user(username)
+    if user != None:
+        if user[2] == password:
+            return True
+    return False</span>How many issues can you find?`,
       },
       {
         id: 3,
-        story: `The payment service went down overnight. The on-call engineer left a note: <em>"crash at 1704067200, check the logs."</em> You need to convert that Unix timestamp to a real date and time — both to pull the right log files and to figure out what time zone your users were in when it happened.<span class="token">1704067200</span>What date and time does this timestamp represent?`,
+        story: `The checkout service started throwing 401s right after the 3pm deploy. The engineer swears they used the production config. You pull what's actually running and compare it to git. Something's different — but it's not obvious.<span class="token-label">// git — expected</span><span class="token">{
+  "service": "checkout-api",
+  "version": "2.4.1",
+  "environment": "production",
+  "auth": {
+    "issuer": "auth.acme.com",
+    "secret": "c2VjcmV0LXByb2QtdjI=",
+    "expiry": 3600
+  },
+  "database": {
+    "host": "db-prod-01.acme.internal",
+    "pool": 20
+  },
+  "features": {
+    "new_checkout": true,
+    "analytics": true
+  },
+  "timeout_ms": 5000
+}</span><span class="token-label">// live — deployed</span><span class="token">{
+  "service": "checkout-api",
+  "version": "2.4.1",
+  "environment": "production",
+  "auth": {
+    "issuer": "auth.acme.com",
+    "secret": "c2VjcmV0LXN0YWdpbmctdjI=",
+    "expiry": 3600
+  },
+  "database": {
+    "host": "db-prod-01.acme.internal",
+    "pool": 20
+  },
+  "features": {
+    "new_checkout": false,
+    "analytics": true
+  },
+  "timeout_ms": 30000
+}</span>Use a diff tool to find what changed.`,
       },
       {
         id: 4,
@@ -330,7 +441,52 @@ Design tools that might help:
       {
         id: 5,
         hint: false,
-        story: `Placeholder — coming soon.<span class="token">aW1hZ2luZSBzb2Z0d2FyZQ==</span>`,
+        story: `Five git challenges. Work through them in order.
+<div class="challenge-cards">
+  <div class="challenge-card">
+    <div class="card-header">
+      <span class="card-title">Challenge 1 — Branching</span>
+      <span class="card-stars">⭐</span>
+    </div>
+    <ol>
+      <li>Clone your fork locally</li>
+      <li>Run <code>bash challenges/01-branching/setup.sh</code></li>
+      <li>List branches with <code>git branch -a</code></li>
+      <li>Switch to <code>feature/add-weather</code> — open index.html, see the change</li>
+      <li>Switch to <code>feature/add-qrcode</code> — see a different change</li>
+      <li>Checkout main and merge <code>feature/add-weather</code></li>
+      <li>Merge <code>feature/add-qrcode</code> — this one won't go smoothly...</li>
+    </ol>
+  </div>
+  <div class="challenge-card">
+    <div class="card-header">
+      <span class="card-title">Challenge 2 — Merge Conflicts</span>
+      <span class="card-stars">⭐⭐</span>
+    </div>
+    <ol>
+      <li>You should see conflict markers in index.html</li>
+      <li>Open the file — find <code>&lt;&lt;&lt;&lt;&lt;&lt;&lt;</code>, <code>=======</code>, <code>&gt;&gt;&gt;&gt;&gt;&gt;&gt;</code></li>
+      <li>Keep both tool sections, delete the markers</li>
+      <li>Run <code>git add index.html</code></li>
+      <li>Run <code>git commit</code> to complete the merge</li>
+      <li>Open index.html in browser — both tools should appear</li>
+    </ol>
+  </div>
+  <div class="challenge-card">
+    <div class="card-header">
+      <span class="card-title">Challenge 3 — Reflog</span>
+      <span class="card-stars">⭐⭐</span>
+    </div>
+    <ol>
+      <li>Run <code>bash challenges/03-reflog/setup.sh</code></li>
+      <li>Check <code>git log</code> — your merged work is gone</li>
+      <li>Don't panic. Run <code>git reflog</code></li>
+      <li>Find the commit hash from before the reset</li>
+      <li>Run <code>git reset --hard &lt;hash&gt;</code></li>
+      <li>Check <code>git log</code> again — everything is back</li>
+    </ol>
+  </div>
+</div>`,
       },
     ];
 
@@ -362,15 +518,20 @@ Design tools that might help:
         section.id = `challenge-${c.id}`;
         section.className = 'challenge-section';
 
+        const defaultHints = [
+          { text: 'free-for.dev', url: 'https://free-for.dev' },
+          { text: 'it-tools.tech', url: 'https://it-tools.tech' },
+          { text: 'devtoollab.com/tools', url: 'https://devtoollab.com/tools' },
+        ];
+        const hintLinks = (c.hints || defaultHints)
+          .map(h => `<a href="${h.url}" target="_blank">${h.text}</a>`)
+          .join('');
+
         section.innerHTML = `
           <div class="container">
             <h1>challenge ${c.id}</h1>
             <div class="story">${c.story}</div>
-            ${c.hint !== false ? `<div class="hint">
-              <a href="https://free-for.dev" target="_blank">free-for.dev</a>
-              <a href="https://it-tools.tech" target="_blank">it-tools.tech</a>
-              <a href="https://devtoollab.com/tools" target="_blank">devtoollab.com/tools</a>
-            </div>` : ''}
+            ${c.hint !== false ? `<div class="hint">${hintLinks}</div>` : ''}
           </div>
         `;
 

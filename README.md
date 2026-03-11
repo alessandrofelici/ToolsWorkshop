@@ -28,7 +28,7 @@
 - [dropsha.re](https://dropsha.re)
 - [tinywow.com](https://tinywow.com)
 - [Wispr Flow](https://wisprflow.ai)
-- [Lord Mango's Website Wiki](https://eggplant-waterlily-64e.notion.site)
+- [Lord Mango's Website Wiki](https://eggplant-waterlily-64e.notion.site/Lord-Mango-s-Website-Wiki-caab230982c54262b3cdbcb152488636)
 
 ### Git Reference
 
