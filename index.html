@@ -325,6 +325,7 @@
     </section>
 
     <div id="challenge-container"></div>
+
   </main>
 
   <!-- TODO: CHANGE ME! Swap the SVG below for any icon you like.
@@ -360,25 +361,6 @@
       },
       {
         id: 2,
-        story: `A junior dev pushed a login helper straight to main — no review, no tests. The CI pipeline flagged it with warnings. Nobody looked. Run this through a code quality tool and find out what it caught.<span class="token">import sqlite3
-
-SECRET_KEY = "admin123"
-
-def get_user(username):
-    conn = sqlite3.connect("users.db")
-    query = "SELECT * FROM users WHERE username = '" + username + "'"
-    result = conn.execute(query)
-    return result.fetchone()
-
-def check_login(username, password):
-    user = get_user(username)
-    if user != None:
-        if user[2] == password:
-            return True
-    return False</span>How many issues can you find?`,
-      },
-      {
-        id: 3,
         story: `The checkout service started throwing 401s right after the 3pm deploy. The engineer swears they used the production config. You pull what's actually running and compare it to git. Something's different — but it's not obvious.<span class="token-label">// git — expected</span><span class="token">{
   "service": "checkout-api",
   "version": "2.4.1",
@@ -418,7 +400,7 @@ def check_login(username, password):
 }</span>Use a diff tool to find what changed.`,
       },
       {
-        id: 4,
+        id: 3,
         hint: false,
         story: `Your turn to make it yours. Complete all three:
 <ul>
@@ -439,7 +421,7 @@ Design tools that might help:
 </ul>`,
       },
       {
-        id: 5,
+        id: 4,
         hint: false,
         story: `Five git challenges. Work through them in order.
 <div class="challenge-cards">
